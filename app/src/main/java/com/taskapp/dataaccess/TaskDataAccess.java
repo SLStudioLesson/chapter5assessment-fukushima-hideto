@@ -84,14 +84,31 @@ public class TaskDataAccess {
      * @param code 取得するタスクのコード
      * @return 取得したタスク
      */
-    // public Task findByCode(int code) {
-    //     try () {
+    public Task findByCode(int code) {
+        Task task = null;
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            //ヘッダーの読み込み
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split(",");
 
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    //     return null;
-    // }
+                int taskCode = Integer.parseInt(values[0]);
+                if(code != taskCode)continue;
+
+                String name = values[1];
+                int status = Integer.parseInt(values[2]);
+                User repUser = userDataAccess.findByCode(Integer.parseInt(values[3]));
+
+                task = new Task(taskCode, name, status, repUser);
+                
+                break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return task;
+    }
 
     /**
      * タスクデータを更新します。
