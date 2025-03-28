@@ -123,7 +123,7 @@ public class TaskLogic {
         task.setStatus(status);
 
         //ステータスに更新する
-        taskDataAccess.save(task);
+        taskDataAccess.update(task);
         //ログを追加
         Log log = new Log(code, loginUser.getCode(), status, LocalDate.now());
         logDataAccess.save(log);
