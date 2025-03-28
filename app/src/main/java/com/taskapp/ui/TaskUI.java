@@ -65,6 +65,8 @@ public class TaskUI {
                     case "1":
                         //タスク一覧表示
                         taskLogic.showAll(loginUser);
+                        //サブメニューへ移動
+                        selectSubMenu();
                         break;
                     case "2":
                         //タスク新規登録
@@ -132,28 +134,28 @@ public class TaskUI {
             try {
                 System.out.print("タスクコードを入力してください：");
                 String taskCode = reader.readLine();
-                System.out.println();
 
                 if(!(isNumeric(taskCode))){
                     System.out.println("コードは半角の数字で入力してください");
+                    System.out.println();
                     continue;
                 }
 
                 System.out.print("タスク名を入力してください：");
                 String taskName = reader.readLine();
-                System.out.println();
 
                 if(!(taskName.length() <= 10)){
                     System.out.println("タスク名は10文字以内で入力してください");
+                    System.out.println();
                     continue;
                 }
 
                 System.out.print("担当するユーザーのコードを選択してください：");
                 String taskUserCode = reader.readLine();
-                System.out.println();
                 
                 if(!(isNumeric(taskUserCode))){
                     System.out.println("ユーザーのコードは半角の数字で入力してください");
+                    System.out.println();
                     continue;
                 }
 
@@ -177,8 +179,40 @@ public class TaskUI {
      * @see #inputChangeInformation()
      * @see #inputDeleteInformation()
      */
-    // public void selectSubMenu() {
-    // }
+    public void selectSubMenu() {
+        boolean flg = true;
+
+        try {
+            while (flg) {
+                //1,2どちらか選んでもらう
+                System.out.println("以下1~2から好きな選択肢を選んでください。");
+                System.out.println("1. タスクのステータス変更, 2. メインメニューに戻る");
+                String selectMenu = reader.readLine();
+                System.out.println();
+
+                switch (selectMenu) {
+                    case "1":
+                        //ステータスの更新
+                        
+                        break;
+
+                    case "2":
+                        //メインメニューに戻る
+                        
+                        break;
+                
+                    default:
+                        break;
+                }
+                
+                
+            }
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
+    }
 
     /**
      * ユーザーからのタスクステータス変更情報を受け取り、タスクのステータスを変更します。
@@ -186,8 +220,21 @@ public class TaskUI {
      * @see #isNumeric(String)
      * @see com.taskapp.logic.TaskLogic#changeStatus(int, int, User)
      */
-    // public void inputChangeInformation() {
-    // }
+    public void inputChangeInformation() {
+
+        //変更を行うタスクコードを入力
+
+        //タスクコードが数字か確認
+
+        //どのステータスに変えるか入力
+
+        //ステータスは数字か確認
+
+        //ステータスは1か2かどちらかなのか確認
+
+
+
+    }
 
     /**
      * ユーザーからのタスク削除情報を受け取り、タスクを削除します。

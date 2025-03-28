@@ -1,5 +1,9 @@
 package com.taskapp.dataaccess;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import com.taskapp.model.Log;
 
 public class LogDataAccess {
@@ -24,8 +28,15 @@ public class LogDataAccess {
      * @param log 保存するログ
      */
     public void save(Log log) {
-        try () {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.newLine();
+
             //ログを一件追加する
+            String line = log.getTaskCode() + "," + log.getChangeUserCode() +
+                    "," + log.getStatus() + "," + log.getChangeDate();
+            
+            writer.write(line);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

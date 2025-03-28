@@ -1,7 +1,9 @@
 package com.taskapp.dataaccess;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,9 +66,14 @@ public class TaskDataAccess {
      * @param task 保存するタスク
      */
     public void save(Task task) {
-        try () {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            //改行する
+            writer.newLine();
             //タスクを一件追加する
-            
+            String line = task.getCode() + "," + task.getName() + "," + task.getStatus() + "," + task.getRepUser().getCode();
+
+            writer.write(line);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

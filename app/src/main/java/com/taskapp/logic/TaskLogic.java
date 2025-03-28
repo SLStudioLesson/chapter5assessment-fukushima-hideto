@@ -1,11 +1,13 @@
 package com.taskapp.logic;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.taskapp.dataaccess.LogDataAccess;
 import com.taskapp.dataaccess.TaskDataAccess;
 import com.taskapp.dataaccess.UserDataAccess;
 import com.taskapp.exception.AppException;
+import com.taskapp.model.Log;
 import com.taskapp.model.Task;
 import com.taskapp.model.User;
 
@@ -79,11 +81,19 @@ public class TaskLogic {
      */
     public void save(int code, String name, int repUserCode,
                     User loginUser) throws AppException {
-        //ユーザーコードがusers.csvにあるか確認
-
+        User user = userDataAccess.findByCode(repUserCode);
+        //担当するユーザーコードがusers.csvにあるか確認
+        if(user == null){
+            throw new AppException("存在するユーザーコードを入力してください");
+        }
         //タスクを1件作成する
+        Task task = new Task(code, name, 0, user);
+
+        taskDataAccess.save(task);
 
         //ログをデータを1件作成する
+        Log log = new Log(code, loginUser.getCode(), 0, LocalDate.now());
+        logDataAccess.save(log);
     }
 
     /**
@@ -97,9 +107,9 @@ public class TaskLogic {
      * @param loginUser ログインユーザー
      * @throws AppException タスクコードが存在しない、またはステータスが前のステータスより1つ先でない場合にスローされます
      */
-    // public void changeStatus(int code, int status,
-    //                         User loginUser) throws AppException {
-    // }
+    public void changeStatus(int code, int status,
+                            User loginUser) throws AppException {
+    }
 
     /**
      * タスクを削除します。
